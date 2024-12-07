@@ -1,0 +1,15 @@
+logo_image: '/images/logo/logo-180x180.png' # You can add own logo. For example '/images/logo.png'.
+logo_text: Si Studio
+
+menu__settings:
+  menu__items:
+    - title: 'Home'
+      url: '/'
+    - title: 'Projekty'
+      url: '/projects/'
+    - title: 'O Mnie'
+      url: '/about/'
+    - title: 'Oferta'
+      url: '/offer/'
+    - title: 'Kontakt'
+      url: '/contact/'

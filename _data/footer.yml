@@ -1,0 +1,15 @@
+footer_menu__settings:
+  menu__items:
+    - title: 'Home'
+      url: '/'
+    - title: 'Projekty'
+      url: '/projects/'
+    - title: 'O Mnie'
+      url: '/about/'
+    - title: 'Oferta'
+      url: '/offer/'
+    - title: 'Kontakt'
+      url: '/blog/'
+
+copyright_text_html: >-
+  <p> 2024 &copy; Si-Studio </p>
