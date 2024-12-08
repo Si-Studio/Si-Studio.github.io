@@ -5,5 +5,5 @@
 social:
 - {icon: "Facebook", link: "https://www.facebook.com/profile.php?id=100046407104924"}
 - {icon: "Instagram", link: "https://www.instagram.com/sistudio_interiors/"}
-- {icon: "Pinterest", link: "https://pinterest.com"}
-- {icon: "Youtube", link: "https://youtube.com"}
+# - {icon: "Pinterest", link: "https://pinterest.com"}
+# - {icon: "Youtube", link: "https://youtube.com"}
