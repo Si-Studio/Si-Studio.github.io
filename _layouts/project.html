@@ -13,8 +13,8 @@ layout: default
   </div>
 
   {% if page.previous.url or page.next.url %}
+  <div class="project__box">
   <div class="project__navigation animate">
-    <div class="project__box">
       {% if page.previous.url %}
       <a class="project__prev" href="{{page.previous.url}}">
           <span class="project__nav__info">Poprzedni Projekt</span>
