@@ -17,13 +17,13 @@ layout: default
   <div class="project__navigation animate">
       {% if page.previous.url %}
       <a class="project__prev" href="{{page.previous.url}}">
-          <span class="project__nav__info">Poprzedni Projekt</span>
+          <span class="project__nav__info_prev">Poprzedni Projekt</span>
           <h2 class="project__nav__title"><i class="ion ion-md-arrow-round-back arrow-left"></i>{{page.previous.title}}</h2>
       </a>
       {% endif %}
       {% if page.next.url %}
       <a class="project__prev" href="{{page.next.url}}">
-          <span class="project__nav__info">Następny Projekt</span>
+          <span class="project__nav__info_next">Następny Projekt</span>
           <h2 class="project__nav__title">{{page.next.title}}<i class="ion ion-md-arrow-round-forward arrow-right"></i></h2>
       </a>
       {% endif %}
