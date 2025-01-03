@@ -1,6 +1,6 @@
 ---
-name: Tatiana Curtis
-position: Art Director
-image: 'images/client-3.jpg'
-blurb: Quamquam id quidem, infinitum est in hac urbe, Ita multo sanguine profuso in laetitia et in victoria est mortuus. Atqui pugnantibus et contrariis studiis semper.
+name: Beata Choma
+position: projekt elewacji
+image: 'images/elewacja.jpg'
+blurb: Zamówiłam u Pani Igi wykonanie projektu elewacji. Jestem bardzo zadowolona. Współpraca przebiegała bardzo profesjonalnie. Pani Iga wzięła pod uwagę mój budżet i oczekiwania. Fachowo doradziła nie tylko przy projekcie, ale również przy wyborze produktów do wykonania elewacji. Dostałam też wizualizacje. Z całego serca polecam współpracę.
 ---
