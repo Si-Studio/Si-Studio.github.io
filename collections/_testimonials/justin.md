@@ -1,6 +1,5 @@
 ---
-name: Justin Baptista
-position: Copywriter
-image: 'images/client-1.jpg'
-blurb: Quamquam id quidem, infinitum est in hac urbe, Ita multo sanguine profuso in laetitia et in victoria est mortuus. Atqui pugnantibus et contrariis studiis semper.
+name: Justyna Nawacka
+image: 'images/sypialnia.jpg'
+blurb: Pani Iga pełen profesjonalizm. Pomogła nam w aranżacji naszego wymarzonego domu. Od każdej listewki po meble. Doradzała, pomagała w wyborze - co będzie funkcjonale, a co się nie sprawdzi. Bardzo polecamy.
 ---
