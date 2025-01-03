@@ -10,27 +10,47 @@
             <h2 class="{{c}}__contact-title">{{ include.form_title }}</h2>
             <p class="{{c}}__contact-description">{{ include.form_description }}</p>
           </div>
-          <form class="{{c}}__form"
-            action="{{include.form_success_page}}"
+          <form class="gform {{c}}__form"
+            id="contactForm"
+            action="https://script.google.com/macros/s/AKfycbx3S4usxHdeaMw_NSMBGnuNek5Rx6GXjGvkhwtuGFnJfOOC58EnrBa_Hf2qKFZydF6D/exec"
             method="POST">
-            <input type="hidden" name="_to" value="{{include.form_submission_email}}">
             <div class="{{c}}__form-group">
-              <label class="{{c}}__form-label screen-reader-text" for="form-name">Your Name</label>
-              <input class="{{c}}__form-input" id="form-name" type="text" name="name" placeholder="Your name..." required>
+              <label class="{{c}}__form-label screen-reader-text" for="name">Your Name</label>
+              <input class="{{c}}__form-input" id="name" type="text" name="name" placeholder="Your name..." required>
             </div>
             <div class="{{c}}__form-group">
-              <label class="{{c}}__form-label screen-reader-text" for="form-email">Your Email</label>
-              <input class="{{c}}__form-input" id="form-email" type="email" name="_replyto" placeholder="Your email..."
+              <label class="{{c}}__form-label screen-reader-text" for="email">Your Email</label>
+              <input class="{{c}}__form-input" id="email" type="email" name="email" placeholder="Your email..."
                 required>
             </div>
             <div class="{{c}}__form-group">
-              <label class="{{c}}__form-label screen-reader-text" for="form-text">Your Message</label>
-              <textarea class="{{c}}__form-input" id="form-text" name="text" rows="9" placeholder="Your message..."
+              <label class="{{c}}__form-label screen-reader-text" for="email">Phone Number</label>
+              <input class="{{c}}__form-input" id="phone" type="tel" name="phone" placeholder="Your phone number..."
+                required>
+            </div>
+            <div class="{{c}}__form-group">
+              <label class="{{c}}__form-label screen-reader-text" for="message">Your Message</label>
+              <textarea class="{{c}}__form-input" id="message" name="message" rows="9" placeholder="Your message..."
                 required></textarea>
             </div>
+            <input type="hidden" name="subject" id="email-subject"
+              value="Contact Form Submission">
             <div class="{{c}}__form-group {{c}}__form-group--button">
-              <button class="c-button c-button--primary c-button--large" type="submit">{{ include.form_button_text }}</button>
+              <div id="success">
+                <div id="form_success" style="display:none" class="alert alert-sucess alert--large"><strong>{{ site.translations[site.lang].contact.sucess | default: "Thanks for contacting us! We will get back to you soon!" }}</strong></div>
+                <div id="form_failure" style="display:none" class="alert alert-error alert--large"><strong>{{ site.translations[site.lang].contact.failure | default: "Sorry, it seems that mail server is not responding. Please try again later!" }}</strong></div>
+              </div>
+              <div class="d-flex justify-content-center">
+                <div id="spinner" style="display:none" class="spinner" role="status">
+                  <span class="loader"></span>
+                </div>
+              </div>
+              <button id="sendMessageButton" class="c-button c-button--primary c-button--large" type="submit">{{ include.form_button_text }}</button>
             </div>
+            <fieldset class="honeypot-field">
+              <label for="honeypot">To help avoid spam, utilize a Honeypot technique with a hidden text field; must be empty to submit the form! Otherwise, we assume the user is a spam bot.</label>
+              <input id="honeypot" type="text" name="honeypot" value="" />
+            </fieldset>
           </form>
         </div>
 
