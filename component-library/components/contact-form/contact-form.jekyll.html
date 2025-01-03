@@ -16,29 +16,29 @@
             method="POST">
             <div class="{{c}}__form-group">
               <label class="{{c}}__form-label screen-reader-text" for="name">Your Name</label>
-              <input class="{{c}}__form-input" id="name" type="text" name="name" placeholder="Your name..." required>
+              <input class="{{c}}__form-input" id="name" type="text" name="name" placeholder='{{ include.name | default: "Your name..." }}' required>
             </div>
             <div class="{{c}}__form-group">
               <label class="{{c}}__form-label screen-reader-text" for="email">Your Email</label>
-              <input class="{{c}}__form-input" id="email" type="email" name="email" placeholder="Your email..."
+              <input class="{{c}}__form-input" id="email" type="email" name="email" placeholder='{{ include.email | default: "Your email..." }}'
                 required>
             </div>
             <div class="{{c}}__form-group">
               <label class="{{c}}__form-label screen-reader-text" for="email">Phone Number</label>
-              <input class="{{c}}__form-input" id="phone" type="tel" name="phone" placeholder="Your phone number..."
+              <input class="{{c}}__form-input" id="phone" type="tel" name="phone" placeholder='{{ include.phone | default: "Your phone number..." }}'
                 required>
             </div>
             <div class="{{c}}__form-group">
               <label class="{{c}}__form-label screen-reader-text" for="message">Your Message</label>
-              <textarea class="{{c}}__form-input" id="message" name="message" rows="9" placeholder="Your message..."
+              <textarea class="{{c}}__form-input" id="message" name="message" rows="9" placeholder='{{ include.message | default: "Your message..." }}'
                 required></textarea>
             </div>
             <input type="hidden" name="subject" id="email-subject"
               value="Contact Form Submission">
             <div class="{{c}}__form-group {{c}}__form-group--button">
               <div id="success">
-                <div id="form_success" style="display:none" class="alert alert-sucess alert--large"><strong>{{ site.translations[site.lang].contact.sucess | default: "Thanks for contacting us! We will get back to you soon!" }}</strong></div>
-                <div id="form_failure" style="display:none" class="alert alert-error alert--large"><strong>{{ site.translations[site.lang].contact.failure | default: "Sorry, it seems that mail server is not responding. Please try again later!" }}</strong></div>
+                <div id="form_success" style="display:none" class="alert alert-sucess alert--large"><strong>{{ include.sucess | default: "Thanks for contacting us! We will get back to you soon!" }}</strong></div>
+                <div id="form_failure" style="display:none" class="alert alert-error alert--large"><strong>{{ include.failure | default: "Sorry, it seems that mail server is not responding. Please try again later!" }}</strong></div>
               </div>
               <div class="d-flex justify-content-center">
                 <div id="spinner" style="display:none" class="spinner" role="status">
