@@ -52,6 +52,7 @@
   align-items: center;
   width: 100%;
   margin-left: 100px;
+  height: 80px;
 
   .social {
     margin-left: auto;
@@ -80,6 +81,7 @@
       z-index: 999;
       opacity: 1;
       transition: all .25s ease;
+      height: 100%;
     }
 
     .nav__list {
