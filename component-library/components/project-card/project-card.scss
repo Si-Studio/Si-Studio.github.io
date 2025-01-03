@@ -33,9 +33,9 @@
 			width: 100%;
 			height: 100%;
 			transition: all .4s ease 0s;
-			opacity: 0;
-			visibility: hidden;
-			background: linear-gradient(360deg, $primary-color 0%, rgba($secondary-color, 0.3) 120.95%);
+			opacity: 0.9;
+			// visibility: hidden;
+			background: linear-gradient(360deg, $primary-color 0%, rgba($secondary-color, 0.1) 50%);
 		}
 
 		img {
@@ -55,7 +55,8 @@
 		&:hover {
 			&::before {
 				opacity: 1;
-				visibility: visible;
+				// visibility: visible;
+				background: linear-gradient(360deg, $primary-color 0%, rgba($secondary-color, 0.3) 120.95%);
 			}
 
 			img {
