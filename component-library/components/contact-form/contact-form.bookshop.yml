@@ -19,6 +19,9 @@ blueprint:
   phone: ""
   email: ""
   message: ""
+  subject: ""
+  sucess: ""
+  failure: ""
 
 # Overrides any fields in the blueprint when viewing this component in the component browser
 preview:

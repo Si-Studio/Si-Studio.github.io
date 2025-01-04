@@ -29,6 +29,10 @@
                 required>
             </div>
             <div class="{{c}}__form-group">
+              <label class="{{c}}__form-label screen-reader-text" for="topic">Subject</label>
+              <input class="{{c}}__form-input" id="subject" type="text" name="subject" placeholder='{{ include.topic | default: "Subject..." }}' required>
+            </div>
+            <div class="{{c}}__form-group">
               <label class="{{c}}__form-label screen-reader-text" for="message">Your Message</label>
               <textarea class="{{c}}__form-input" id="message" name="message" rows="9" placeholder='{{ include.message | default: "Your message..." }}'
                 required></textarea>
