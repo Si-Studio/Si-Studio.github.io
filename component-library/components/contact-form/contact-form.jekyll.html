@@ -12,7 +12,7 @@
           </div>
           <form class="gform {{c}}__form"
             id="contactForm"
-            action="https://script.google.com/macros/s/AKfycbzhzIeOPmTcJIQ-1ngT1Asd4llrK5d19cAHi1di-MSlqkbD8orBtkVqM5oLXoEJ8_UR/exec"
+            action="https://script.google.com/macros/s/AKfycbxaMwWOnDoTA38a5VXqRqWcxXyDGD-OpW1fqMDUQ4VbVQRE--TUccnSyyos9uGLUJJb/exec"
             method="POST">
             <div class="{{c}}__form-group">
               <label class="{{c}}__form-label screen-reader-text" for="name">Your Name</label>
@@ -30,15 +30,13 @@
             </div>
             <div class="{{c}}__form-group">
               <label class="{{c}}__form-label screen-reader-text" for="topic">Subject</label>
-              <input class="{{c}}__form-input" id="subject" type="text" name="subject" placeholder='{{ include.subject | default: "Subject..." }}' required>
+              <input class="{{c}}__form-input" id="email-subject" type="text" name="subject" placeholder='{{ include.subject | default: "Subject..." }}' required>
             </div>
             <div class="{{c}}__form-group">
               <label class="{{c}}__form-label screen-reader-text" for="message">Your Message</label>
               <textarea class="{{c}}__form-input" id="message" name="message" rows="9" placeholder='{{ include.message | default: "Your message..." }}'
                 required></textarea>
             </div>
-            <input type="hidden" name="subject" id="email-subject"
-              value="Contact Form Submission">
             <div class="{{c}}__form-group {{c}}__form-group--button">
               <div id="success">
                 <div id="form_success" style="display:none" class="alert alert-sucess alert--large"><strong>{{ include.sucess | default: "Thanks for contacting us! We will get back to you soon!" }}</strong></div>
