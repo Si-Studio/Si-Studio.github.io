@@ -1,9 +1,16 @@
 source "https://rubygems.org"
 
-gem "jekyll", "4.3.3"
+gem "jekyll"
+gem "csv"
+gem "base64"
+gem "bigdecimal"
 
 group :jekyll_plugins do
-  gem "jekyll-bookshop", "3.9.0"
-  gem 'jekyll-tagging', "1.1.0"
-  gem "jekyll-sitemap", "1.4.0"
+  gem "jekyll-sitemap"
+  gem "jekyll-paginate"
+end
+
+group :test do
+  gem "rspec"
+  gem "rantly"
 end

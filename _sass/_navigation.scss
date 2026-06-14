@@ -1,0 +1,364 @@
+@use "variables" as *;
+
+// ==========================================================================
+// Navigation — Si Studio
+// ==========================================================================
+// Fixed top navigation with transparent → opaque scroll transition,
+// mobile hamburger overlay, staggered link animations.
+// BEM: .site-header, .site-nav, .site-nav__logo, .site-nav__links,
+//       .site-nav__toggle, .mobile-menu
+
+// ---------------------------------------------------------------------------
+// Site Header — Fixed positioning, z-index, scroll transition
+// ---------------------------------------------------------------------------
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: transparent;
+  transition: background-color 300ms var(--ease-out),
+              backdrop-filter 300ms var(--ease-out);
+  will-change: background-color;
+
+  // Scrolled state — applied via JS when scroll > 80px
+  &.is-scrolled {
+    background: rgba(var(--color-bg-rgb), 0.95);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Site Nav — Inner flex container
+// ---------------------------------------------------------------------------
+.site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--space-content-max);
+  margin-inline: auto;
+  padding: 16px $space-section-mobile;
+  min-height: 60px;
+
+  @media (min-width: $bp-tablet) {
+    padding: 16px $space-section-desktop;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Logo
+// ---------------------------------------------------------------------------
+.site-nav__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  text-decoration: none;
+  z-index: 1001; // Above mobile overlay
+
+  img {
+    display: block;
+    height: 32px;
+    width: auto;
+  }
+}
+
+.site-nav__logo-text {
+  font-family: 'Inter', 'Helvetica Neue', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+// ---------------------------------------------------------------------------
+// Desktop Links
+// ---------------------------------------------------------------------------
+.site-nav__links {
+  display: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 32px;
+  align-items: center;
+
+  @media (min-width: $bp-tablet) {
+    display: flex;
+  }
+}
+
+.site-nav__links li {
+  margin: 0;
+  padding: 0;
+}
+
+.site-nav__links a {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: 400;
+  color: var(--color-text);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+  transition: border-color var(--duration-fast) var(--ease-out);
+
+  &:hover,
+  &:focus-visible {
+    border-bottom-color: var(--color-accent);
+  }
+
+  // Active link — underline indicator (non-color-dependent)
+  &[aria-current="page"] {
+    border-bottom: 2px solid var(--color-text);
+    font-weight: 500;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Hamburger Toggle — Visible only below 768px
+// ---------------------------------------------------------------------------
+.site-nav__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  z-index: 1001; // Above mobile overlay
+  position: relative;
+
+  @media (min-width: $bp-tablet) {
+    display: none;
+  }
+
+  // Hamburger icon lines
+  &__icon,
+  &__icon::before,
+  &__icon::after {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--color-text);
+    border-radius: 1px;
+    transition: transform 300ms var(--ease-out),
+                opacity 300ms var(--ease-out);
+  }
+
+  &__icon {
+    position: relative;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 24px;
+    }
+
+    &::before {
+      transform: translateY(-7px);
+    }
+
+    &::after {
+      transform: translateY(7px);
+    }
+  }
+
+  // Open state — transform to X
+  &[aria-expanded="true"] {
+    .site-nav__toggle__icon {
+      background-color: transparent;
+
+      &::before {
+        transform: rotate(45deg);
+      }
+
+      &::after {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Mobile Menu — Full-screen overlay
+// ---------------------------------------------------------------------------
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  background: rgba(var(--color-bg-rgb), 0.98);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 300ms var(--ease-out),
+              visibility 0ms linear 300ms;
+
+  // Open state
+  &.is-open {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 300ms var(--ease-out),
+                visibility 0ms linear 0ms;
+  }
+
+  // Only visible on mobile
+  @media (min-width: $bp-tablet) {
+    display: none !important;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Mobile Menu Links — Staggered animation
+// ---------------------------------------------------------------------------
+.mobile-menu__links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.mobile-menu__links li {
+  margin: 0;
+  padding: 0;
+}
+
+.mobile-menu__links a {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--font-size-h3);
+  font-weight: 400;
+  color: var(--color-text);
+  text-decoration: none;
+  padding: 16px 24px;
+  min-height: 44px;
+  min-width: 44px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 300ms var(--ease-out),
+              transform 300ms var(--ease-out);
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-accent);
+  }
+
+  // Active link — underline (non-color-dependent)
+  &[aria-current="page"] {
+    border-bottom: 2px solid var(--color-text);
+  }
+}
+
+// Staggered link reveal — delays applied per item (50–100ms per item)
+// Total must not exceed 600ms. With 6 links at ~80ms each = 480ms.
+.mobile-menu.is-open .mobile-menu__links a {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+// Stagger delays (80ms per item — within 50–100ms range, 6 items × 80ms = 480ms < 600ms)
+.mobile-menu.is-open .mobile-menu__links li:nth-child(1) a {
+  transition-delay: 0ms;
+}
+
+.mobile-menu.is-open .mobile-menu__links li:nth-child(2) a {
+  transition-delay: 80ms;
+}
+
+.mobile-menu.is-open .mobile-menu__links li:nth-child(3) a {
+  transition-delay: 160ms;
+}
+
+.mobile-menu.is-open .mobile-menu__links li:nth-child(4) a {
+  transition-delay: 240ms;
+}
+
+.mobile-menu.is-open .mobile-menu__links li:nth-child(5) a {
+  transition-delay: 320ms;
+}
+
+.mobile-menu.is-open .mobile-menu__links li:nth-child(6) a {
+  transition-delay: 400ms;
+}
+
+// ---------------------------------------------------------------------------
+// Prefers Reduced Motion — Instant state changes, no stagger
+// ---------------------------------------------------------------------------
+@media (prefers-reduced-motion: reduce) {
+  .site-header {
+    transition: none;
+
+    &.is-scrolled {
+      // Still applies the opaque background, just instantly
+    }
+  }
+
+  .site-nav__toggle {
+    &__icon,
+    &__icon::before,
+    &__icon::after {
+      transition: none;
+    }
+  }
+
+  .mobile-menu {
+    transition: none;
+  }
+
+  .mobile-menu__links a {
+    transition: none;
+    // Show links in final state immediately when menu opens
+    opacity: 0;
+    transform: translateY(0);
+  }
+
+  .mobile-menu.is-open .mobile-menu__links a {
+    opacity: 1;
+    transform: none;
+    transition-delay: 0ms !important;
+  }
+
+  .site-nav__links a {
+    transition: none;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Screen-reader only utility (for hamburger button label)
+// ---------------------------------------------------------------------------
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// ---------------------------------------------------------------------------
+// Body offset for fixed nav (prevents content hiding behind header)
+// ---------------------------------------------------------------------------
+body {
+  padding-top: 76px; // 60px nav height + 16px padding
+}

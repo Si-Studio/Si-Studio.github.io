@@ -1,0 +1,71 @@
+---
+layout: default
+---
+
+<section class="blog section">
+  <div class="container">
+    <header class="blog__header">
+      <h1 class="blog__title">{{ page.title }}</h1>
+      {% if page.description %}
+        <p class="blog__description">{{ page.description }}</p>
+      {% endif %}
+    </header>
+
+    <div class="blog__grid grid">
+      {% if paginator %}
+        {% assign posts = paginator.posts %}
+      {% else %}
+        {% assign posts = site.posts %}
+      {% endif %}
+
+      {% for post in posts %}
+        <article class="blog-card" data-animate="fade-up">
+          <a href="{{ post.url }}" class="blog-card__link">
+            <div class="blog-card__image-wrap">
+              {% if post.image %}
+                <img src="{{ post.image }}" alt="{{ post.title }}" loading="lazy" width="800" height="600"
+                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw">
+              {% else %}
+                <div class="blog-card__placeholder"></div>
+              {% endif %}
+            </div>
+            <div class="blog-card__content">
+              <h2 class="blog-card__title">{{ post.title }}</h2>
+              <time class="blog-card__date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%d.%m.%Y" }}</time>
+            </div>
+          </a>
+        </article>
+      {% endfor %}
+    </div>
+
+    {% if paginator %}
+      {% if paginator.total_pages > 1 %}
+        <nav class="blog__pagination" aria-label="Paginacja bloga">
+          {% if paginator.previous_page %}
+            <a href="{{ paginator.previous_page_path }}" class="blog__pagination-link blog__pagination-link--prev" aria-label="Poprzednia strona">
+              &larr; Nowsze
+            </a>
+          {% else %}
+            <span class="blog__pagination-link blog__pagination-link--prev blog__pagination-link--disabled" aria-hidden="true">
+              &larr; Nowsze
+            </span>
+          {% endif %}
+
+          <span class="blog__pagination-info">
+            {{ paginator.page }} / {{ paginator.total_pages }}
+          </span>
+
+          {% if paginator.next_page %}
+            <a href="{{ paginator.next_page_path }}" class="blog__pagination-link blog__pagination-link--next" aria-label="Następna strona">
+              Starsze &rarr;
+            </a>
+          {% else %}
+            <span class="blog__pagination-link blog__pagination-link--next blog__pagination-link--disabled" aria-hidden="true">
+              Starsze &rarr;
+            </span>
+          {% endif %}
+        </nav>
+      {% endif %}
+    {% endif %}
+  </div>
+</section>

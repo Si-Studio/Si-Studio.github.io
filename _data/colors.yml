@@ -1,0 +1,11 @@
+palette:
+  cream: "#FAF7F2"          # Primary background
+  warm-white: "#FFFFFF"      # Card backgrounds, overlays
+  soft-taupe: "#C4B5A4"     # Borders, muted elements
+  charcoal: "#2C2C2C"       # Primary text
+  accent: "#8B7355"         # Interactive elements (warm bronze)
+
+rgb:
+  cream: "250, 247, 242"
+  warm-white: "255, 255, 255"
+  charcoal: "44, 44, 44"

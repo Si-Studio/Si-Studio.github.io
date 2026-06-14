@@ -1,0 +1,50 @@
+{% comment %}
+  Responsive image include — generates srcset if responsive variants exist.
+  
+  Usage:
+    {% include responsive-image.html src="/images/projects/foo/bar.jpg" alt="Description" loading="lazy" width="1200" height="800" %}
+  
+  Parameters:
+    src      - Original image path (required)
+    alt      - Alt text (required)
+    loading  - "lazy" or "eager" (default: "lazy")
+    width    - Width attribute (default: "1200")
+    height   - Height attribute (default: "800")
+    sizes    - Sizes attribute (default: responsive grid sizes)
+    class    - Optional CSS class
+    data-lightbox - Include if set
+{% endcomment %}
+
+{% assign img_src = include.src %}
+{% assign img_alt = include.alt | default: "" %}
+{% assign img_loading = include.loading | default: "lazy" %}
+{% assign img_width = include.width | default: "1200" %}
+{% assign img_height = include.height | default: "800" %}
+{% assign img_sizes = include.sizes | default: "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" %}
+{% assign img_class = include.class | default: "" %}
+
+{% comment %} Construct responsive paths {% endcomment %}
+{% assign path_parts = img_src | split: "/" %}
+{% assign filename = path_parts | last %}
+{% assign ext = filename | split: "." | last %}
+{% assign basename = filename | replace: ext, "" | remove_last: "." %}
+
+{% comment %} Check if this is a project image {% endcomment %}
+{% assign is_project_image = img_src | contains: "/images/projects/" %}
+
+{% if is_project_image %}
+  {% assign project_folder = path_parts[-2] %}
+  {% assign srcset_400 = "/images/responsive/" | append: project_folder | append: "/" | append: basename | append: "-400w." | append: ext %}
+  {% assign srcset_800 = "/images/responsive/" | append: project_folder | append: "/" | append: basename | append: "-800w." | append: ext %}
+  {% assign srcset_1200 = "/images/responsive/" | append: project_folder | append: "/" | append: basename | append: "-1200w." | append: ext %}
+{% endif %}
+
+<img src="{{ img_src }}"
+     alt="{{ img_alt }}"
+     loading="{{ img_loading }}"
+     width="{{ img_width }}"
+     height="{{ img_height }}"
+     sizes="{{ img_sizes }}"
+     {% if is_project_image %}srcset="{{ srcset_400 }} 400w, {{ srcset_800 }} 800w, {{ srcset_1200 }} 1200w, {{ img_src }} 1600w"{% endif %}
+     {% if img_class != "" %}class="{{ img_class }}"{% endif %}
+     {% if include.data-lightbox %}data-lightbox{% endif %}>

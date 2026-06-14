@@ -1,0 +1,67 @@
+// ==========================================================================
+// Design Tokens — Si Studio
+// ==========================================================================
+// Warm neutral palette (4 neutrals + 1 accent), typography scale,
+// spacing tokens, and animation durations/easings.
+
+:root {
+  // -------------------------------------------------------------------------
+  // Colors — 4 warm neutrals + 1 accent
+  // -------------------------------------------------------------------------
+  --color-bg: #FAF7F2;
+  --color-bg-rgb: 250, 247, 242;
+  --color-surface: #FFFFFF;
+  --color-text: #2C2C2C;
+  --color-text-muted: #6B5E52;
+  --color-border: #C4B5A4;
+  --color-accent: #8B7355;
+  --color-accent-hover: #7A6548;
+
+  // -------------------------------------------------------------------------
+  // Typography
+  // -------------------------------------------------------------------------
+  --font-display: 'Cormorant Garamond', 'Georgia', serif;
+  --font-body: 'Montserrat', 'Helvetica Neue', sans-serif;
+  --type-scale: 1.25; // Major third
+  --font-size-base: 1rem;    // 16px
+  --font-size-sm: 0.875rem;  // 14px
+  --font-size-h4: 1.25rem;   // 20px
+  --font-size-h3: 1.563rem;  // 25px
+  --font-size-h2: 1.953rem;  // 31px
+  --font-size-h1: 2.441rem;  // 39px
+  --line-height-body: 1.6;
+
+  // -------------------------------------------------------------------------
+  // Spacing
+  // -------------------------------------------------------------------------
+  --space-section-mobile: 24px;
+  --space-section-desktop: 48px;
+  --space-content-max: 1400px;
+
+  // -------------------------------------------------------------------------
+  // Animation
+  // -------------------------------------------------------------------------
+  --duration-fast: 200ms;
+  --duration-medium: 400ms;
+  --duration-slow: 800ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+// ===========================================================================
+// SCSS Variables (for use in Sass calculations/mixins)
+// ===========================================================================
+
+// Breakpoints
+$bp-mobile: 375px;
+$bp-tablet: 768px;
+$bp-desktop: 1024px;
+
+// Content
+$content-max-width: 1400px;
+
+// Spacing
+$space-section-mobile: 24px;
+$space-section-desktop: 48px;
+
+// Type scale ratio
+$type-scale: 1.25;

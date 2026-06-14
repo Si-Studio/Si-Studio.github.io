@@ -1,55 +1,128 @@
 ---
 title: Home
-content_blocks:
-  - _bookshop_name: hero-image
-    title: "Si-studio"
-    text: "Your dream come true"
-    carousel:
-      - image: /images/projects/apartament_premium_nad_morzem/glowne_Miedzywodzie.jpg
-      - image: /images/projects/apartament_przy_plazy_w_hiszpanii/glowne_hiszpania.jpg
-      - image: /images/projects/dom_w_bobolinie/glowne_Bobolin.jpg
-      - image: /images/projects/ptasi_dwor_w_steklnie/glowne_Steklno.jpg
-      - image: /images/projects/marena_restauracja/glowne_Marena.jpg
-    duration: 5
-  - _bookshop_name: hero
-    title: Cześć! Nazywam się Iga Śmierzchalska    
-    description_html: >-
-      <p>Jestem założycielką <strong>Si Studio Architektura Wnętrz</strong>, które z ogromną przyjemnością prowadzę od 2019 roku. 
-        Ukończyłam zarówno kierunek inżynierski - Architektura i Urbanistyka na ZUT oraz artystyczny - Projektowanie Wnętrz na Akademii Sztuki w Szczecinie. 
-        Bardzo istotne zawsze było dla mnie połączenie wartości wizualnych wraz z możliwościami technicznymi.</p>
-    image: /images/personal/Iga_1.jpg
-    image_alt: Iga Śmierzchalska picture
-    cta_button: Kontakt
-    cta_button_link: "#contact"
-    works_button: Zobacz moje prace
-    works_button_link: "#projects"
-  - _bookshop_name: projects-section
-    title: Najnowsze Projekty
-    description_html: >-
-      <p>Najnowsze projekty tworzone z pasją i kreatywnością!</p>
-    link_url: /projects
-    show_projects: true
-  - _bookshop_name: testimonials-section
-    title: Zadowoleni Klienci
-    description_html:
-    show_testimonials: true
-  - _bookshop_name: blog-section
-    title: Najnowsze posty
-    description_html: >-
-      <p>Elegancja w każdym detalu – poznaj sekrety ponadczasowego wnętrza.</p>
-    link_url: /blog
-    show_posts: true
-  - _bookshop_name: contact-form
-    form_title: Kontakt
-    form_description: Skontaktuj się z nami!
-    form_submission_email: site@example.com
-    form_button_text: Wyślij
-    name: Twoje imię...
-    email: Twój email...
-    phone: Twój numer telefonu...
-    message: Twoja wiadomość...
-    subject: Temat
-    sucess: Dziękujemy za kontakt! Odpowiemy wkrótce!
-    failure: Ups! Spróbój ponownie później!
+description: "Si Studio — pracownia projektowania wnętrz w Szczecinie. Tworzymy eleganckie przestrzenie z pasją i precyzją."
+permalink: /
 ---
 
+{% include hero.html %}
+
+<!-- Featured Projects -->
+<section class="section" aria-label="Najnowsze projekty">
+  <div class="container">
+    <h2 class="portfolio-heading" data-animate="fade-up">Najnowsze Projekty</h2>
+    <div class="project-grid">
+      {% assign featured_projects = site.projects | sort: "date" | reverse | slice: 0, 6 %}
+      {% for project in featured_projects %}
+        <a href="{{ project.url | relative_url }}" class="project-card" data-animate="fade-up" style="transition-delay: {{ forloop.index0 | times: 120 }}ms">
+          <div class="project-card__image-wrap">
+            <img src="{{ project.image }}" alt="{{ project.title }}"
+                 loading="lazy" width="800" height="600"
+                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw">
+          </div>
+          <div class="project-card__overlay">
+            <h3 class="project-card__title">{{ project.title }}</h3>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+    <div class="offer__cta" data-animate="fade-up" style="margin-top: 3rem;">
+      <a href="/projects/" class="offer__cta-btn">Zobacz wszystkie projekty</a>
+    </div>
+  </div>
+</section>
+
+<!-- About Teaser -->
+<section class="section" aria-label="O projektantce">
+  <div class="container">
+    <div class="split">
+      <a href="/blog/dvl9u-6jp8r/" class="about__image-wrap" data-animate="scale-in" aria-label="Moja historia">
+        <img src="/images/blog/20260225_DVL9u-6jP8r_1.jpg"
+             alt="Iga Śmierzchalska — projektantka wnętrz Si Studio"
+             loading="lazy" width="800" height="1000">
+      </a>
+      <div class="about__text">
+        <h2 class="about__heading" data-animate="fade-up">O Mnie</h2>
+        <p data-animate="fade-up">
+          Jestem <strong>Iga Śmierzchalska</strong> — projektantka wnętrz i założycielka
+          Si Studio Architektura Wnętrz, które z pasją prowadzę od 2019 roku w Szczecinie.
+        </p>
+        <p data-animate="fade-up">
+          Specjalizuję się w architekturze wnętrz prywatnych — domów, mieszkań i apartamentów
+          — ale z przyjemnością tworzę również przestrzenie użyteczności publicznej.
+        </p>
+        <div data-animate="fade-up" style="margin-top: 1rem;">
+          <a href="/about/" class="offer__cta-btn">Więcej o mnie</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="section testimonials" aria-label="Opinie klientów">
+  <div class="container">
+    <h2 class="testimonials__heading" data-animate="fade-up">Zadowoleni Klienci</h2>
+    <div class="testimonials__grid">
+      {% for review in site.data.testimonials %}
+        <blockquote class="testimonial-card" data-animate="fade-up" style="transition-delay: {{ forloop.index0 | times: 150 }}ms">
+          <p class="testimonial-card__quote">{{ review.quote }}</p>
+          <footer class="testimonial-card__footer">
+            <cite class="testimonial-card__name">{{ review.name }}</cite>
+            <span class="testimonial-card__project">{{ review.project }}</span>
+          </footer>
+        </blockquote>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Services Teaser -->
+<section class="section" aria-label="Usługi">
+  <div class="container" style="text-align: center;">
+    <h2 class="offer__heading" data-animate="fade-up">Oferta</h2>
+    <p class="offer__intro" data-animate="fade-up">Kompleksowe usługi projektowania wnętrz dopasowane do Twoich potrzeb.</p>
+    <div class="grid" style="margin-bottom: 2rem;">
+      {% for service in site.data.services.services %}
+        <article class="offer__card offer__card--numbered" data-animate="fade-up" style="transition-delay: {{ forloop.index0 | times: 200 }}ms;">
+          <span class="offer__card-number">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+          <h3 class="offer__card-title">{{ service.name }}</h3>
+          <p class="offer__card-desc">{{ service.description }}</p>
+        </article>
+      {% endfor %}
+    </div>
+    <div class="offer__cta" data-animate="fade-up">
+      <a href="/offer/" class="offer__cta-btn">Zobacz pełną ofertę</a>
+    </div>
+  </div>
+</section>
+
+<!-- Blog Teaser -->
+<section class="section" aria-label="Blog">
+  <div class="container">
+    <h2 class="blog__title" data-animate="fade-up" style="text-align: center; margin-bottom: 2rem;">Najnowsze wpisy</h2>
+    <div class="blog__grid grid">
+      {% assign recent_posts = site.posts | slice: 0, 3 %}
+      {% for post in recent_posts %}
+        <article class="blog-card" data-animate="fade-up" style="transition-delay: {{ forloop.index0 | times: 150 }}ms">
+          <a href="{{ post.url }}" class="blog-card__link">
+            <div class="blog-card__image-wrap">
+              {% if post.image %}
+                <img src="{{ post.image }}" alt="{{ post.title }}" loading="lazy" width="800" height="600"
+                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw">
+              {% else %}
+                <div class="blog-card__placeholder"></div>
+              {% endif %}
+            </div>
+            <div class="blog-card__content">
+              <h3 class="blog-card__title">{{ post.title }}</h3>
+              <time class="blog-card__date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%d.%m.%Y" }}</time>
+            </div>
+          </a>
+        </article>
+      {% endfor %}
+    </div>
+    <div class="offer__cta" data-animate="fade-up" style="margin-top: 2rem;">
+      <a href="/blog/" class="offer__cta-btn">Zobacz wszystkie wpisy</a>
+    </div>
+  </div>
+</section>

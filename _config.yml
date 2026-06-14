@@ -1,35 +1,16 @@
-title: Vonge
+# Site metadata
+title: "Si Studio"
+description: "Projektowanie wnętrz z pasją i precyzją — studio projektowania wnętrz w Szczecinie"
+url: "https://si-studio.github.io"
+lang: "pl"
+telephone: "+48 XXX XXX XXX"
 
+# Plugins
 plugins:
-  - jekyll-bookshop
   - jekyll-sitemap
-  - jekyll/tagging
+  - jekyll-paginate
 
-# Multiple bookshops can be used on one website,
-# or different production / staging locations.
-bookshop_locations:
-  - ./component-library
-
-exclude:
-  - postcss.config.js
-  - node_modules
-
-# include:
-#   - _cloudcannon
-
-# First casousel is the hero background
-carousels:
-  - images: 
-    - image: ./images/project-6.jpg
-    - image: ./images/project-7.jpg
-    - image: ./images/project-8.jpg
-    - image: ./images/project-9.jpg
-  # - images: 
-  #   - image: /uploads/slider/image5.jpg
-  #   - image: /uploads/slider/image6.jpg
-  #   - image: /uploads/slider/image7.jpg
-  #   - image: /uploads/slider/image8.jpg
-
+# Collections
 collections_dir: 'collections'
 
 collections:
@@ -38,13 +19,12 @@ collections:
     permalink: /:title/
   projects:
     output: true
-    permalink: /project/:slug
-  testimonials:
-    output: true
+    permalink: /project/:slug/
   posts:
-    output: false
-    permalink: /blog/:slug
+    output: true
+    permalink: /blog/:slug/
 
+# Defaults
 defaults:
   - scope:
       path: ""
@@ -64,7 +44,21 @@ defaults:
     values:
       layout: post
 
-# Tags
-tag_page_dir: tag
-tag_page_layout: tag_page
-tag_permalink_style: /:title
+# Pagination
+paginate: 12
+paginate_path: "/blog/page:num/"
+
+# Exclude build artifacts and dev tooling
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - LICENSE
+  - scripts/
+  - sistudio_content/
+  - node_modules/
+  - .kiro/
+  - components.html
+  - component-library/
+  - spec/
+  - lib/

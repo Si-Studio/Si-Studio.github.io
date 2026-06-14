@@ -1,0 +1,66 @@
+// ==========================================================================
+// Global Scroll-Reveal Animations — Si Studio
+// ==========================================================================
+// Low-specificity fallback animation classes for [data-animate] elements.
+// Component partials (_portfolio, _about, _blog, etc.) may override these
+// with higher-specificity selectors. Only transform + opacity are animated
+// (GPU-composited properties).
+
+// ---------------------------------------------------------------------------
+// Initial hidden states (bare attribute selectors for low specificity)
+// ---------------------------------------------------------------------------
+
+[data-animate="fade-up"] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity var(--duration-slow) var(--ease-out),
+    transform var(--duration-slow) var(--ease-out);
+  will-change: opacity, transform;
+}
+
+[data-animate="fade-in"] {
+  opacity: 0;
+  transition: opacity var(--duration-slow) var(--ease-out);
+  will-change: opacity;
+}
+
+[data-animate="scale-in"] {
+  opacity: 0;
+  transform: scale(0.95);
+  transition:
+    opacity var(--duration-slow) var(--ease-out),
+    transform var(--duration-slow) var(--ease-out);
+  will-change: opacity, transform;
+}
+
+// ---------------------------------------------------------------------------
+// Visible (final) states — triggered by scroll-animations.js
+// ---------------------------------------------------------------------------
+
+[data-animate="fade-up"].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-animate="fade-in"].is-visible {
+  opacity: 1;
+}
+
+[data-animate="scale-in"].is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+// ---------------------------------------------------------------------------
+// Reduced motion: show all animated elements in final state immediately
+// ---------------------------------------------------------------------------
+
+@media (prefers-reduced-motion: reduce) {
+  [data-animate] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+}

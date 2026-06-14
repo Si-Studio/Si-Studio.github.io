@@ -2,33 +2,26 @@
 layout: default
 ---
 
-<div class="container">
+<section class="project section">
+  <div class="container">
+    <header class="project__header">
+      <h1 class="project__title">{{ page.title }}</h1>
+    </header>
 
-  {% bookshop page-heading title=page.title description=page.subtitle %}
-  {% assign page_image = site.baseurl | append: page.image %}
-  {% bookshop page-image image=page_image %}
-
-  <div class="page animate">
-    {{ content }}
-  </div>
-
-  {% if page.previous.url or page.next.url %}
-  <div class="project__box">
-  <div class="project__navigation animate">
-      {% if page.previous.url %}
-      <a class="project__prev" href="{{page.previous.url}}">
-          <span class="project__nav__info_prev">Poprzedni Projekt</span>
-          <h2 class="project__nav__title"><i class="ion ion-md-arrow-round-back arrow-left"></i>{{page.previous.title}}</h2>
-      </a>
+    <div class="project__gallery">
+      {% if page.image %}
+      <figure class="project__gallery-item">
+        <img src="{{ page.image }}" alt="{{ page.title }}" loading="eager" width="1200" height="800" data-lightbox
+             sizes="(max-width: 1400px) 100vw, 1400px" fetchpriority="high">
+      </figure>
       {% endif %}
-      {% if page.next.url %}
-      <a class="project__prev" href="{{page.next.url}}">
-          <span class="project__nav__info_next">Następny Projekt</span>
-          <h2 class="project__nav__title">{{page.next.title}}<i class="ion ion-md-arrow-round-forward arrow-right"></i></h2>
-      </a>
-      {% endif %}
+
+      {% for img in page.gallery %}
+      <figure class="project__gallery-item">
+        <img src="{{ img }}" alt="{{ page.title }} — {{ forloop.index | plus: 1 }}" loading="lazy" width="1200" height="800" data-lightbox
+             sizes="(max-width: 1400px) 100vw, 1400px">
+      </figure>
+      {% endfor %}
     </div>
   </div>
-  {% endif %}
-
-</div>
+</section>
