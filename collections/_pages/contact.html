@@ -64,11 +64,6 @@ permalink: /contact/
       <aside class="contact__info" data-animate="fade-up">
         <h2 class="contact__info-heading">Dane kontaktowe</h2>
 
-        <div class="contact__info-item">
-          <span class="contact__info-label">Email</span>
-          <a href="mailto:kontakt@si-studio.pl" class="contact__info-link">kontakt@si-studio.pl</a>
-        </div>
-
         {% if site.data.social_links.social %}
         <div class="contact__social">
           <span class="contact__info-label">Social media</span>
@@ -76,7 +71,20 @@ permalink: /contact/
             {% for social in site.data.social_links.social %}
             <li class="contact__social-item">
               <a href="{{ social.link }}" target="_blank" rel="noopener" class="contact__social-link" aria-label="{{ social.icon }}">
+                {% if social.icon == "Facebook" %}
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3V2z" fill="currentColor"/>
+                </svg>
+                {% elsif social.icon == "Instagram" %}
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2" fill="none"/>
+                  <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2" fill="none"/>
+                  <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/>
+                </svg>
+                {% else %}
                 {{ social.icon }}
+                {% endif %}
+                <span>{{ social.icon }}</span>
               </a>
             </li>
             {% endfor %}
