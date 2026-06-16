@@ -8,6 +8,35 @@
 // status messages, accessible focus styles, 44px touch targets.
 
 // ---------------------------------------------------------------------------
+// Hero banner
+// ---------------------------------------------------------------------------
+.contact__hero {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+  padding: 4rem 1.5rem 3rem;
+  text-align: center;
+
+  @media (min-width: $bp-tablet) {
+    padding: 5rem 3rem 4rem;
+  }
+}
+
+.contact__hero-title {
+  font-family: var(--font-display);
+  font-size: var(--font-size-h1);
+  font-weight: 400;
+  color: var(--color-bg);
+  margin: 0 0 0.75rem;
+}
+
+.contact__hero-subtitle {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  color: var(--color-border);
+  margin: 0;
+}
+
+// ---------------------------------------------------------------------------
 // Section container
 // ---------------------------------------------------------------------------
 .contact {
@@ -167,6 +196,37 @@ textarea.contact-form__input {
   &:focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 2px;
+  }
+
+  // Loading state
+  &--loading {
+    opacity: 0.7;
+    cursor: not-allowed;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+// Inline spinner icon inside button
+.contact-form__spinner-icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: contact-spin 600ms linear infinite;
+}
+
+@keyframes contact-spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 

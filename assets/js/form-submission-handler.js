@@ -68,11 +68,13 @@
     // xhr.withCredentials = true;
     var formSpinner = form.querySelector("#spinner");
     var formButton = form.querySelector("#sendMessageButton");
+    if (formButton) {
+      formButton.disabled = true;
+      formButton.innerHTML = '<span class="contact-form__spinner-icon"></span> Wysyłanie...';
+      formButton.classList.add('contact-form__submit--loading');
+    }
     if (formSpinner) {
       formSpinner.style.display = "block";
-    }
-    if (formButton) {
-      formButton.style.display = "none";
     }
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.onerror = function() {
@@ -84,12 +86,16 @@
     xhr.onreadystatechange = function() {
         var formSpinner = form.querySelector("#spinner");
         var formSuccess = form.querySelector("#form_success");
+        var formButton = form.querySelector("#sendMessageButton");
         if (formSpinner) {
           formSpinner.style.display = "none";
         }
         if (xhr.readyState === 4 && xhr.status === 200) {
           if (formSuccess) {
             formSuccess.style.display = "block";
+          }
+          if (formButton) {
+            formButton.style.display = "none";
           }
         }
         //clear all fields
