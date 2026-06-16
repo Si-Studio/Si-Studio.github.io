@@ -1,58 +1,45 @@
 <!-- begin header -->
-<header class="c-header">
-  <div class="container">
-    <div class="row">
-      <div class="c-header__inner">
+<header class="site-header" data-scroll-threshold="80">
+  <nav class="site-nav" aria-label="Nawigacja główna">
+    <a class="site-nav__logo" href="/">
+      {% if site.data.navigation.logo_image %}
+      <img src="{{ site.data.navigation.logo_image }}" alt="{{ site.data.navigation.logo_text | default: 'Si Studio' }}" width="40" height="40">
+      <span class="site-nav__logo-text"><span>Si</span><span>Studio</span></span>
+      {% else %}
+      <span class="site-nav__logo-text"><span>Si</span><span>Studio</span></span>
+      {% endif %}
+    </a>
 
-        <div class="logo">
-          <a class="logo__link" href="{{ site.baseurl }}/">
-            {%if site.data.navigation.logo_image %}
-            <img class="logo__image" src="{{ site.baseurl }}{{ site.data.navigation.logo_image }}" alt="{{ site.data.general_settings.title }}">
-            {{ site.data.general_settings.title }}
-            {% endif %}
-          </a>
-        </div>
+    <ul class="site-nav__links" role="menubar">
+      {% for item in site.data.navigation.menu__settings.menu__items %}
+      <li role="none">
+        <a role="menuitem" href="{{ item.url | relative_url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>{{ item.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
 
-        <nav class="main-nav">
-          <div class="main-nav__box">
+    <button class="site-nav__toggle" aria-expanded="false" aria-controls="mobile-menu" type="button">
+      <span class="sr-only">Menu</span>
+      <span class="site-nav__toggle-icon" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </button>
+  </nav>
 
-            <div class="nav__icon-close">
-              <i class="ion ion-md-close"></i>
-            </div>
-
-            <div class="nav__title">Menu</div>
-
-              <ul class="nav__list list-reset">
-
-              {% for item in site.data.navigation.menu__settings.menu__items %}
-                {% if item.submenu %}
-                <li class="nav__item dropdown">
-                  <span class="nav__link dropdown-toggle">{{ item.title }} <i class="ion ion-ios-arrow-down arrow-down"></i></span>
-                  <div class="dropdown-menu">
-                    {% for submenu-item in item.submenu %}
-                      <a href="{{ submenu-item.url }}" class="nav__link{% if page.url == submenu-item.url %} active-link{% endif %}">{{submenu-item.title}}</a>
-                    {% endfor %}
-                  </div>
-                </li>
-
-                {% else %}
-                <li class="nav__item">
-                  <a href="{{ item.url | relative_url }}" class="nav__link{% if page.url == item.url %} active-link{% endif %}">{{ item.title }}</a>
-                </li>
-                {% endif %}
-              {% endfor %}
-
-            </ul>
-          </div>
-
-          {% bookshop_include social-link %}
-        </nav>
-
-        <div class="nav-button">
-          <i class="nav__icon nav__icon-menu ion ion-md-menu"></i>
-        </div>
-
-      </div>
+  <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu mobilne" hidden>
+    <div class="mobile-menu__inner">
+      <button class="mobile-menu__close" aria-label="Zamknij menu" type="button">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <ul class="mobile-menu__links">
+        {% for item in site.data.navigation.menu__settings.menu__items %}
+        <li>
+          <a href="{{ item.url | relative_url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>{{ item.title }}</a>
+        </li>
+        {% endfor %}
+      </ul>
     </div>
   </div>
 </header>

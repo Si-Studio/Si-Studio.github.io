@@ -1,0 +1,17 @@
+<!-- JSON-LD Structured Data -->
+{% if page.url == "/" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Si Studio",
+  "url": "{{ site.url }}",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Szczecin",
+    "addressCountry": "PL"
+  },
+  "telephone": "{{ site.telephone }}"
+}
+</script>
+{% endif %}

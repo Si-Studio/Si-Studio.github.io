@@ -1,0 +1,20 @@
+// ==========================================================================
+// Page Transitions — fade-out on internal navigation
+// ==========================================================================
+// Requirement 16.5: page transition 300–800ms
+// Note: The fade-IN is handled by _loader.scss (main starts at opacity 0,
+// revealed when .loader--hidden is applied). This partial only handles
+// the fade-OUT when navigating away.
+
+main.page-exit {
+  opacity: 0 !important;
+  transition: opacity 400ms var(--ease-out) !important;
+}
+
+// Reduced motion: no page transition
+@media (prefers-reduced-motion: reduce) {
+  main.page-exit {
+    opacity: 1 !important;
+    transition: none !important;
+  }
+}
