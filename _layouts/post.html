@@ -2,115 +2,82 @@
 layout: default
 ---
 
-{%- comment -%} Fix 6: BlogPosting JSON-LD structured data {%- endcomment -%}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": {{ page.title | jsonify }},
-  "datePublished": "{{ page.date | date_to_xmlschema }}",
-  "image": "{{ page.image | absolute_url }}",
-  "author": {
-    "@type": "Person",
-    "name": "Iga Śmierzchalska"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Si Studio",
-    "url": "{{ site.url }}"
-  },
-  "description": {{ page.description | jsonify }},
-  "url": "{{ page.url | absolute_url }}"
-}
-</script>
+<div class="post-top">
+  <div class="container">
+    <div class="row">
 
-<article class="post">
-  {%- comment -%} Fix 1: Full-width featured hero image {%- endcomment -%}
-  {% if page.image %}
-  <div class="post__hero">
-    <img src="{{ page.image }}" alt="{{ page.title }}" loading="eager" width="1600" height="900" fetchpriority="high">
-  </div>
-  {% endif %}
-
-  <div class="post section">
-    <div class="container post__container">
-
-      {%- comment -%} Fix 3: Back to blog navigation {%- endcomment -%}
-      <nav class="post__breadcrumb" aria-label="Powrót">
-        <a href="/blog/" class="post__back-link">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
-          </svg>
-          Blog
-        </a>
-      </nav>
-
-      <header class="post__header">
-        <time class="post__date" datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%d.%m.%Y" }}</time>
-        <h1 class="post__title">{{ page.title }}</h1>
-        {% if page.tags.size > 0 %}
-        <div class="post__tags">
-          {% for tag in page.tags limit: 5 %}
-          <span class="post__tag">{{ tag }}</span>
-          {% endfor %}
+      {%if page.image %}
+      <div class="col col-6 col-d-12">
+        <div class="post-image">
+          <img loading="lazy" src="{{site.baseurl}}{{page.image}}" alt="{{page.title}}">
         </div>
-        {% endif %}
-      </header>
-
-      <div class="post__content">
-        {{ content }}
       </div>
+      {%endif %}
 
-      {%- comment -%} Gallery: all images in full size including the featured one {%- endcomment -%}
-      {% if page.images.size > 0 %}
-        <div class="post__gallery">
-          {% for img in page.images %}
-            <figure class="post__gallery-item">
-              {% if forloop.first %}
-                <img src="{{ img }}" alt="{{ page.title }} — {{ forloop.index }}" loading="eager" width="1200" height="800" data-lightbox>
-              {% else %}
-                <img src="{{ img }}" alt="{{ page.title }} — {{ forloop.index }}" loading="lazy" width="1200" height="800" data-lightbox>
-              {% endif %}
-            </figure>
-          {% endfor %}
-        </div>
-      {% endif %}
+      <div class="col col-6 col-d-12">
+        <div class="post__info">
 
-      {%- comment -%} Videos {%- endcomment -%}
-      {% if page.videos.size > 0 %}
-        <div class="post__gallery">
-          {% for vid in page.videos %}
-            <figure class="post__gallery-item post__gallery-item--video">
-              <video src="{{ vid }}" controls playsinline preload="metadata" width="1200" height="800">
-                Twoja przeglądarka nie obsługuje odtwarzania wideo.
-              </video>
-            </figure>
-          {% endfor %}
-        </div>
-      {% endif %}
-
-      {%- comment -%} Fix 4: Previous / Next post navigation {%- endcomment -%}
-      {% if page.previous or page.next %}
-      <nav class="post__navigation" aria-label="Nawigacja między wpisami">
-        <div class="post__nav-item post__nav-item--prev">
-          {% if page.previous %}
-          <a href="{{ page.previous.url }}" class="post__nav-link">
-            <span class="post__nav-label">← Nowszy wpis</span>
-            <span class="post__nav-title">{{ page.previous.title | truncate: 60 }}</span>
-          </a>
+          {% if page.tags.size >= 1 %}
+          <div class="post-tags">
+            {% for tag in page.tags %}
+              <a href="{{ site.baseurl }}/tag/{{ tag | downcase }}" class="post-tags__tag">{{ tag }}</a>
+            {% endfor %}
+          </div>
           {% endif %}
-        </div>
-        <div class="post__nav-item post__nav-item--next">
-          {% if page.next %}
-          <a href="{{ page.next.url }}" class="post__nav-link">
-            <span class="post__nav-label">Starszy wpis →</span>
-            <span class="post__nav-title">{{ page.next.title | truncate: 60 }}</span>
-          </a>
-          {% endif %}
-        </div>
-      </nav>
-      {% endif %}
 
+
+          <h1 class="post__title">{{ page.title | escape }}</h1>
+
+          <div class="post__meta">
+            <div class="post__author-image">
+              <img loading="lazy" src="{{ site.data.author.author_image }}" alt="{{ site.data.author.author_name }}">
+            </div>
+
+            <div class="post__meta-bottom">
+              <div class="post__author">{{ site.data.author.author_name }}</div>
+              <time class="post__date" datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date_to_string
+                }}</time>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
   </div>
-</article>
+</div>
+
+<!-- begin post -->
+<div class="container animate">
+
+  <article class="post">
+
+    <div class="post__content">
+      {{ content }}
+    </div>
+
+    {% include share.html %}
+
+  </article>
+</div>
+<!-- end post -->
+
+<div class="container">
+  <div class="row">
+    <div class="col col-10 col-d-12 push-d-0 push-1">
+      {% include post-navigation.html %}
+    </div>
+  </div>
+</div>
+
+{% include related-posts.html %}
+
+{% if site.data.general_settings.disqus-identifier %}
+  {% include disqus-comments.html %}
+{% endif %}
+
+{% bookshop
+  newsletter newsletter_title=site.data.newsletter.newsletter_title
+  newsletter_description=site.data.newsletter.newsletter_description
+  newsletter_identifier=site.data.newsletter.newsletter_identifier
+  newsletter_button=site.data.newsletter.newsletter_button
+%}

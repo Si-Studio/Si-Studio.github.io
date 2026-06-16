@@ -42,12 +42,6 @@ jobs:
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v4
-      - name: Generate blog posts from Instagram content
-        run: ruby scripts/generate-posts.rb
-      - name: Generate responsive image variants
-        run: |
-          sudo apt-get install -y imagemagick > /dev/null 2>&1 || true
-          ruby scripts/generate-responsive-images.rb
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"

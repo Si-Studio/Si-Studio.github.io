@@ -1,68 +1,23 @@
 <!-- begin footer -->
-<footer class="site-footer">
-  <div class="site-footer__inner">
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col col-12">
 
-    <nav class="site-footer__nav" aria-label="Nawigacja stopki">
-      <ul class="site-footer__nav-list">
-        {% for item in site.data.footer.footer_menu__settings.menu__items %}
-        <li class="site-footer__nav-item">
-          <a href="{{ item.url | relative_url }}" class="site-footer__nav-link">{{ item.title }}</a>
-        </li>
-        {% endfor %}
-      </ul>
-    </nav>
+        {% bookshop_include social-link %}
 
-    <div class="site-footer__social">
-      {% for social in site.data.social_links.social %}
-      <a href="{{ social.link }}" class="site-footer__social-link" target="_blank" rel="noopener" aria-label="{{ social.icon }}">
-        {% if social.icon == "Facebook" %}
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3V2z" fill="currentColor"/>
-        </svg>
-        {% elsif social.icon == "Instagram" %}
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2" fill="none"/>
-          <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2" fill="none"/>
-          <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/>
-        </svg>
-        {% endif %}
-      </a>
-      {% endfor %}
+        <ul class="footer_nav list-reset">
+          {% for item in site.data.footer.footer_menu__settings.menu__items %}
+          <li class="footer_nav__item">
+            <a href="{{ item.url | relative_url }}" class="footer_nav__link">{{ item.title }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+
+        <div class="copyright">{{ site.data.footer.copyright_text_html }}</div>
+
+      </div>
     </div>
-
-    <div class="site-footer__copyright">
-      <p>{{ site.data.footer.copyright_text }}</p>
-    </div>
-
   </div>
 </footer>
 <!-- end footer -->
-
-<!-- Back to top button -->
-<button class="back-to-top" aria-label="Przewiń do góry" type="button">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>
-</button>
-
-<script>
-(function() {
-  var btn = document.querySelector('.back-to-top');
-  if (!btn) return;
-
-  function toggleVisibility() {
-    if (window.scrollY > window.innerHeight) {
-      btn.classList.add('back-to-top--visible');
-    } else {
-      btn.classList.remove('back-to-top--visible');
-    }
-  }
-
-  window.addEventListener('scroll', toggleVisibility, { passive: true });
-  toggleVisibility();
-
-  btn.addEventListener('click', function() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-})();
-</script>

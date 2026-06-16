@@ -3,9 +3,7 @@ layout: default
 ---
 
 {% assign tag=page.tag | capitalize %}
-<div class="container">
-  <h1 class="page-heading">{{ tag }}</h1>
-</div>
+{% bookshop page-heading title=tag %}
 
 <div class="container">
   <div class="row">

@@ -9,6 +9,7 @@ footer_menu__settings:
     - title: 'Oferta'
       url: '/offer/'
     - title: 'Kontakt'
-      url: '/contact/'
+      url: '/blog/'
 
-copyright_text: "2025 © Si-Studio"
+copyright_text_html: >-
+  <p> 2024 &copy; Si-Studio </p>

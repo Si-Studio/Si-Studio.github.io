@@ -1,0 +1,69 @@
+.c-hero-image {	
+	position: relative;
+	transform: translate(0);
+	padding-top: 56.25%;
+	margin-bottom: 48px;
+	min-height: 280px;
+	border-radius: 16px;
+	overflow: hidden;
+	background: $blue-gray;
+
+	img {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		user-select: none;
+	}
+
+	@media only screen and (max-width: $desktop) {
+		padding-top: 65%;
+		margin-bottom: 40px;
+	}
+
+	@media only screen and (max-width: $mobile) {
+		margin-bottom: 32px;
+	}
+
+	&__content {
+		position: absolute;
+		padding: 28px;
+		margin-top: -15%;
+		margin-left: 70%;
+		border-radius: 16px 16px 16px 16px;
+		background: $background-color-alt;
+		top: 90%;
+		display: block;
+		z-index: 2;
+	  }
+
+	&__title {
+	margin: 16px 0;
+	font-size: 24px;
+	line-height: 1.3;
+	font-weight: 700;
+
+	a {
+		&:hover {
+		color: $text-color;
+		}
+	}
+
+	@media only screen and (max-width: $mobile) {
+		font-size: 22px;
+	}
+	}
+
+	&__excerpt {
+		display: -webkit-box;
+		font-size: 15px;
+		line-height: 1.6;
+		margin-bottom: 20px;
+		color: $text-color;
+		overflow-y: hidden;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+	  }
+}

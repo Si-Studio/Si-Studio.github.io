@@ -1,26 +1,9 @@
 ---
-title: "Projekty"
-description: "Portfolio projektów wnętrzarskich Si Studio — apartamenty, domy i przestrzenie komercyjne"
-permalink: /projects/
+title: Projects
+content_blocks:
+  - _bookshop_name: page-heading
+    title: Moje projekty
+    description: Wnętrza dopracowane w każdym detalu – elegancka forma spotyka się z funkcjonalnością.
+  - _bookshop_name: projects-list
+    show_projects: true
 ---
-
-<section class="section" aria-label="Portfolio projektów">
-  <div class="container">
-    <h1 class="portfolio-heading">Projekty</h1>
-    <div class="project-grid">
-      {% for project in site.projects %}
-        <a href="{{ project.url | relative_url }}" class="project-card" data-animate="fade-up">
-          <div class="project-card__image-wrap">
-            <img src="{{ project.image }}" alt="{{ project.title }}"
-                 {% if forloop.index <= 6 %}loading="eager"{% else %}loading="lazy"{% endif %}
-                 width="800" height="600"
-                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw">
-          </div>
-          <div class="project-card__overlay">
-            <h3 class="project-card__title">{{ project.title }}</h3>
-          </div>
-        </a>
-      {% endfor %}
-    </div>
-  </div>
-</section>
