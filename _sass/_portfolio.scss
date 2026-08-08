@@ -208,11 +208,5 @@
     width: 100%;
     height: auto;
     border-radius: 2px;
-    cursor: pointer;
-    transition: opacity var(--duration-fast) ease;
-
-    &:hover {
-      opacity: 0.92;
-    }
   }
 }

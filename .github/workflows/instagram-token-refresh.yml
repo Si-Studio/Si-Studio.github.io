@@ -1,0 +1,65 @@
+name: Refresh Instagram Token
+
+# ---------------------------------------------------------------------------
+# Refreshes the Instagram long-lived access token before it expires.
+# Long-lived tokens are valid for 60 days. This runs weekly to keep it fresh.
+#
+# Required repository secrets:
+#   INSTAGRAM_ACCESS_TOKEN - Current long-lived token (will be overwritten)
+#   GH_PAT                 - Personal Access Token with `repo` scope
+#                            (needed to update repository secrets via API)
+#
+# How to create GH_PAT:
+#   1. Go to GitHub Settings > Developer Settings > Personal Access Tokens
+#   2. Generate a Fine-grained token with:
+#      - Repository access: select this repository
+#      - Permissions: Secrets (read & write)
+#   3. Add it as a repository secret named GH_PAT
+# ---------------------------------------------------------------------------
+
+on:
+  schedule:
+    # Run every Monday at 03:00 UTC (well within the 60-day window)
+    - cron: '0 3 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Refresh Instagram access token
+        id: refresh
+        env:
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+        run: |
+          echo "Requesting token refresh from Instagram Graph API..."
+          RESPONSE=$(curl -s "https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${INSTAGRAM_ACCESS_TOKEN}")
+
+          # Check for errors
+          ERROR=$(echo "$RESPONSE" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('error',{}).get('message',''))" 2>/dev/null)
+          if [ -n "$ERROR" ]; then
+            echo "ERROR: Token refresh failed: $ERROR" >&2
+            exit 1
+          fi
+
+          # Extract new token
+          NEW_TOKEN=$(echo "$RESPONSE" | python3 -c "import sys,json; print(json.load(sys.stdin)['access_token'])" 2>/dev/null)
+          if [ -z "$NEW_TOKEN" ]; then
+            echo "ERROR: Could not parse new token from response" >&2
+            echo "Response: $RESPONSE" >&2
+            exit 1
+          fi
+
+          echo "Token refreshed successfully"
+          echo "new_token=${NEW_TOKEN}" >> "$GITHUB_OUTPUT"
+
+      - name: Update repository secret
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          NEW_TOKEN: ${{ steps.refresh.outputs.new_token }}
+        run: |
+          echo "$NEW_TOKEN" | gh secret set INSTAGRAM_ACCESS_TOKEN --repo "$GITHUB_REPOSITORY"
+          echo "Repository secret INSTAGRAM_ACCESS_TOKEN updated"

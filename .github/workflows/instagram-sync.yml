@@ -1,0 +1,63 @@
+name: Sync Instagram Posts
+
+# ---------------------------------------------------------------------------
+# Automatically fetches new posts from Instagram and commits them as Jekyll
+# blog posts. Runs daily and can be triggered manually.
+#
+# Required repository secrets:
+#   INSTAGRAM_ACCESS_TOKEN - Long-lived token from Instagram Graph API
+#                            (must be refreshed every 60 days, see below)
+#   INSTAGRAM_USER_ID      - Numeric Instagram Business/Creator account ID
+#
+# How to get these:
+#   1. Create a Meta Developer App at https://developers.facebook.com/
+#   2. Add "Instagram Graph API" product
+#   3. Connect your Instagram Business/Creator account via a Facebook Page
+#   4. Generate a long-lived access token (valid 60 days, refresh via API)
+#   5. Find your Instagram User ID via:
+#      GET https://graph.instagram.com/me?access_token=YOUR_TOKEN
+#   6. Add both as repository secrets in GitHub Settings > Secrets > Actions
+#
+# Token refresh (recommended: set up a separate scheduled workflow or use
+# the token refresh endpoint before expiry):
+#   GET https://graph.instagram.com/refresh_access_token
+#     ?grant_type=ig_refresh_token&access_token=YOUR_TOKEN
+# ---------------------------------------------------------------------------
+
+on:
+  schedule:
+    # Run daily at 06:00 UTC
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Fetch new Instagram posts
+        id: fetch
+        env:
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
+        run: python scripts/fetch_instagram.py
+
+      - name: Commit and push new posts
+        if: steps.fetch.outputs.new_posts != '0'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add collections/_posts/ images/blog/
+          git diff --cached --quiet && exit 0
+          git commit -m "Add new Instagram posts ($(date +%Y-%m-%d))"
+          git push

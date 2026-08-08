@@ -11,14 +11,14 @@ layout: default
     <div class="project__gallery">
       {% if page.image %}
       <figure class="project__gallery-item">
-        <img src="{{ page.image }}" alt="{{ page.title }}" loading="eager" width="1200" height="800" data-lightbox
+        <img src="{{ page.image }}" alt="{{ page.title }}" loading="eager" width="1200" height="800"
              sizes="(max-width: 1400px) 100vw, 1400px" fetchpriority="high">
       </figure>
       {% endif %}
 
       {% for img in page.gallery %}
       <figure class="project__gallery-item">
-        <img src="{{ img }}" alt="{{ page.title }} — {{ forloop.index | plus: 1 }}" loading="lazy" width="1200" height="800" data-lightbox
+        <img src="{{ img }}" alt="{{ page.title }} — {{ forloop.index | plus: 1 }}" loading="lazy" width="1200" height="800"
              sizes="(max-width: 1400px) 100vw, 1400px">
       </figure>
       {% endfor %}

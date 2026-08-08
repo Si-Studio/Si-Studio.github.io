@@ -1,15 +1,43 @@
-- name: "Justyna N."
-  project: "dom jednorodzinny bliźniak"
-  quote: "Pani Iga pełen profesjonalizm. Pomogła nam w aranżacji naszego wymarzonego domu. Od każdej listewki po meble. Doradzała, pomagała w wyborze - co będzie funkcjonale, a co się nie sprawdzi. Bardzo polecamy."
+- name: "M S."
+  project: "pizzeria"
+  quote: "Z Panią Igą podjąłem współpracę w celu zaprojektowania wnętrza pizzeri. Z całego serducha mogę szczerze polecić każdemu. Konsultacja, doradztwo oraz wprowadzanie ewentualnych zmian na każdym etapie prac przebiegały bez najmniejszego problemu. Jako inwestor byłem w stałym kontakcie, wykonawcy również chwalili za bezproblemową realizację. Co ważne, zmieściłem się w przewidywanym budżecie. Polecam!"
 
-- name: "Anna L."
-  project: "apartament w Hiszpanii"
-  quote: "Projekt domu w Hiszpanii-zrealizowany sprawnie, zgodnie z oczekiwaniami i w hiszpańskim klimacie. Polecam!"
+- name: "Agata"
+  project: ""
+  quote: "Polecam Panią Igę z czystym sumieniem! Pasja i profesjonalizm, połączona z ogromnym talentem i zmysłem artystycznym oraz estetycznym. Podejście do klienta, umiejętność słuchania i wyszukiwania dopasowanych propozycji to ogromne atuty. Jestem bardzo zadowolona z uzyskanego efektu i z pewnością jeszcze skorzystam z usług."
 
-- name: "Magdalena I."
-  project: "łazienki w kamienicy"
-  quote: "Współpraca z Igą to wielka przyjemność. Projekt dopasowany do potrzeb, do budżetu i super kontakt."
+- name: "Anna M."
+  project: ""
+  quote: "Współpraca z Igą to najwyższy poziom. Jest profesjonalistką w każdym calu. Dostosowywała projekt na bieżąco do naszych potrzeb i różnych pomysłów. Świetnie połączyła praktyczność i design oraz dopasowała do naszego budżetu. Nie mogę się doczekać realizacji i zamieszkania w tym przytulnym i pięknym wnętrzu! Dziękujemy!"
 
 - name: "Beata C."
   project: "elewacja domu"
   quote: "Zamówiłam u Pani Igi wykonanie projektu elewacji. Jestem bardzo zadowolona. Współpraca przebiegała bardzo profesjonalnie. Pani Iga wzięła pod uwagę mój budżet i oczekiwania. Fachowo doradziła nie tylko przy projekcie, ale również przy wyborze produktów do wykonania elewacji. Dostałam też wizualizacje. Z całego serca polecam współpracę."
+
+- name: "Justyna N."
+  project: "dom jednorodzinny"
+  quote: "Pani Iga pełen profesjonalizm. Pomogła nam w aranżacji naszego wymarzonego domu. Od każdej listewki po meble. Doradzała, pomagała w wyborze - co będzie funkcjonalne, a co się nie sprawdzi. Bardzo polecamy."
+
+- name: "Ola D."
+  project: ""
+  quote: "Z całego serca polecam Igę. Od początku współpraca była profesjonalna i bezproblemowa. Na każdym etapie Iga odpowiadała na wszystkie nasze pytania i wątpliwości od początkowej koncepcji przez dobór materiałów, do finalnego projektu. Dużym plusem są jej rekomendacje dotyczące wykonawców i rzetelnych firm. Projekt naszego wnętrza został dopracowany w najmniejszych szczegółach, nie możemy się doczekać realizacji!"
+
+- name: "Michał D."
+  project: ""
+  quote: "Współpraca z Igą była naprawdę świetna. Pełen profesjonalizm od samego początku do końca. Projekt był dokładnie przemyślany i idealnie dopasowany do moich potrzeb, a każdy etap realizacji przebiegał sprawnie. Doceniam indywidualne podejście oraz otwartość na moje pomysły. Efekt końcowy przerósł moje oczekiwania – wnętrze jest funkcjonalne, estetyczne i w pełni zgodne z moją wizją. Serdecznie polecam współpracę!"
+
+- name: "Magdalena I."
+  project: ""
+  quote: "Współpraca z Igą to wielka przyjemność. Projekt dopasowany do potrzeb, do budżetu i super kontakt. Polecamy i na pewno wrócimy przy kolejnych realizacjach."
+
+- name: "Magdalena S."
+  project: ""
+  quote: "Iga jest bardzo profesjonalną osobą, ma duże wyczucie estetyki i potrafi znaleźć idealne rozwiązanie do pokazanej przestrzeni. Bardzo dobrze dobrała wszystko do moich wymagań i wyszło dokładnie tak jak sobie wymarzyłam. Bardzo polecam!"
+
+- name: "Anna L."
+  project: "dom w Hiszpanii"
+  quote: "Projekt domu w Hiszpanii - zrealizowany sprawnie, zgodnie z oczekiwaniami i w hiszpańskim klimacie. Polecam!"
+
+- name: "Wojtek"
+  project: "konsultacja"
+  quote: "Bardzo dobre konsultacje dotyczące rozwiązań, którymi byłem zainteresowany!"

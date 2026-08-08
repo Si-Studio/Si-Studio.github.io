@@ -67,9 +67,9 @@ layout: default
           {% for img in page.images %}
             <figure class="post__gallery-item">
               {% if forloop.first %}
-                <img src="{{ img }}" alt="{{ page.title }} — {{ forloop.index }}" loading="eager" width="1200" height="800" data-lightbox>
+                <img src="{{ img }}" alt="{{ page.title }} — {{ forloop.index }}" loading="eager" width="1200" height="800">
               {% else %}
-                <img src="{{ img }}" alt="{{ page.title }} — {{ forloop.index }}" loading="lazy" width="1200" height="800" data-lightbox>
+                <img src="{{ img }}" alt="{{ page.title }} — {{ forloop.index }}" loading="lazy" width="1200" height="800">
               {% endif %}
             </figure>
           {% endfor %}
