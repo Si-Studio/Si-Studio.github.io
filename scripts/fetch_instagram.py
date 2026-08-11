@@ -27,7 +27,7 @@ from pathlib import Path
 # Configuration
 # ---------------------------------------------------------------------------
 
-GRAPH_API_BASE = "https://graph.instagram.com"
+GRAPH_API_BASE = "https://graph.facebook.com/v21.0"
 POSTS_DIR = Path(__file__).resolve().parent.parent / "collections" / "_posts"
 IMAGES_DIR = Path(__file__).resolve().parent.parent / "images" / "blog"
 PLACEHOLDER_IMAGE = "/images/logo/logo.svg"
@@ -61,6 +61,26 @@ def api_get(url):
     except urllib.error.URLError as e:
         print(f"Network error: {e.reason}", file=sys.stderr)
         sys.exit(1)
+
+
+def resolve_instagram_user_id(access_token):
+    """
+    For Facebook Login tokens: resolve the Instagram Business Account ID
+    from the linked Facebook Page. Falls back to INSTAGRAM_USER_ID env var.
+    """
+    # Step 1: Get Facebook Pages the user manages
+    url = f"{GRAPH_API_BASE}/me/accounts?fields=id,name,instagram_business_account&access_token={access_token}"
+    data = api_get(url)
+    pages = data.get("data", [])
+
+    for page in pages:
+        ig_account = page.get("instagram_business_account")
+        if ig_account:
+            ig_id = ig_account.get("id")
+            print(f"Found Instagram Business Account: {ig_id} (via Page: {page.get('name')})")
+            return ig_id
+
+    return None
 
 
 def fetch_recent_posts(user_id, access_token, limit=FETCH_LIMIT):
@@ -315,7 +335,19 @@ def process_post(post, existing_shortcodes):
 
 def main():
     access_token = get_env("INSTAGRAM_ACCESS_TOKEN")
-    user_id = get_env("INSTAGRAM_USER_ID")
+    user_id = os.environ.get("INSTAGRAM_USER_ID")
+
+    # For Facebook Login tokens (EAA...), resolve IG user ID automatically
+    if not user_id:
+        print("INSTAGRAM_USER_ID not set, resolving from Facebook token...")
+        user_id = resolve_instagram_user_id(access_token)
+        if not user_id:
+            print("ERROR: Could not find an Instagram Business Account linked to your Facebook Pages.", file=sys.stderr)
+            print("Make sure your Instagram Professional account is connected to a Facebook Page.", file=sys.stderr)
+            sys.exit(1)
+    elif access_token.startswith("EAA"):
+        # Even if user_id is set, verify it works — but also try auto-resolve as fallback
+        print(f"Using Facebook Login token with user ID: {user_id}")
 
     print(f"Fetching recent posts for user {user_id}...")
     posts = fetch_recent_posts(user_id, access_token)
