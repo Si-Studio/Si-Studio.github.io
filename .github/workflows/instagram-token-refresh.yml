@@ -40,9 +40,15 @@ jobs:
           echo "Requesting token refresh..."
           # Detect token type: EAA = Facebook Login, IGQ = Instagram Login
           if [[ "$INSTAGRAM_ACCESS_TOKEN" == EAA* ]]; then
-            RESPONSE=$(curl -s "https://graph.facebook.com/v21.0/oauth/access_token?grant_type=fb_exchange_token&client_id=${FB_APP_ID}&client_secret=${FB_APP_SECRET}&fb_exchange_token=${INSTAGRAM_ACCESS_TOKEN}")
+            RESPONSE=$(curl -s -G "https://graph.facebook.com/v21.0/oauth/access_token" \
+              --data-urlencode "grant_type=fb_exchange_token" \
+              --data-urlencode "client_id=${FB_APP_ID}" \
+              --data-urlencode "client_secret=${FB_APP_SECRET}" \
+              --data-urlencode "fb_exchange_token=${INSTAGRAM_ACCESS_TOKEN}")
           else
-            RESPONSE=$(curl -s "https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${INSTAGRAM_ACCESS_TOKEN}")
+            RESPONSE=$(curl -s -G "https://graph.instagram.com/refresh_access_token" \
+              --data-urlencode "grant_type=ig_refresh_token" \
+              --data-urlencode "access_token=${INSTAGRAM_ACCESS_TOKEN}")
           fi
 
           # Check for errors
