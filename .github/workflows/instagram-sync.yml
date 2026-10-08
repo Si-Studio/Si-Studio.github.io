@@ -31,6 +31,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: write
   contents: write
 
 jobs:
@@ -67,7 +68,7 @@ jobs:
       - name: Trigger site rebuild
         if: steps.commit.outputs.committed == 'true'
         env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh workflow run "jekyll.yml" --repo "$GITHUB_REPOSITORY" --ref main
           echo "Triggered Jekyll deploy workflow"
