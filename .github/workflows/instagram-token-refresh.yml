@@ -54,6 +54,12 @@ jobs:
           # Check for errors
           ERROR=$(echo "$RESPONSE" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('error',{}).get('message',''))" 2>/dev/null)
           if [ -n "$ERROR" ]; then
+            if echo "$ERROR" | grep -qi "Session has expired"; then
+              echo "::warning::Instagram access token has expired and cannot be refreshed automatically. Generate a new token and update INSTAGRAM_ACCESS_TOKEN manually."
+              echo "new_token=" >> "$GITHUB_OUTPUT"
+              echo "token_expired=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
             echo "ERROR: Token refresh failed: $ERROR" >&2
             exit 1
           fi
@@ -68,8 +74,10 @@ jobs:
 
           echo "Token refreshed successfully"
           echo "new_token=${NEW_TOKEN}" >> "$GITHUB_OUTPUT"
+          echo "token_expired=false" >> "$GITHUB_OUTPUT"
 
       - name: Update repository secret
+        if: steps.refresh.outputs.new_token != ''
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
           NEW_TOKEN: ${{ steps.refresh.outputs.new_token }}
