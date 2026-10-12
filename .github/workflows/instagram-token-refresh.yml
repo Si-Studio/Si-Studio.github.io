@@ -31,11 +31,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Refresh Instagram access token
-        id: refresh
         env:
           INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
           FB_APP_ID: ${{ secrets.FB_APP_ID }}
           FB_APP_SECRET: ${{ secrets.FB_APP_SECRET }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           echo "Requesting token refresh..."
           # Detect token type: EAA = Facebook Login, IGQ = Instagram Login
@@ -51,7 +51,7 @@ jobs:
               --data-urlencode "access_token=${INSTAGRAM_ACCESS_TOKEN}")
           fi
 
-          # Check for errors
+          # Check for errors (never print the raw response — it may contain a token)
           ERROR=$(echo "$RESPONSE" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('error',{}).get('message',''))" 2>/dev/null)
           if [ -n "$ERROR" ]; then
             echo "ERROR: Token refresh failed: $ERROR" >&2
@@ -61,18 +61,14 @@ jobs:
           # Extract new token
           NEW_TOKEN=$(echo "$RESPONSE" | python3 -c "import sys,json; print(json.load(sys.stdin)['access_token'])" 2>/dev/null)
           if [ -z "$NEW_TOKEN" ]; then
-            echo "ERROR: Could not parse new token from response" >&2
-            echo "Response: $RESPONSE" >&2
+            echo "ERROR: Could not parse new token from response (no access_token field)" >&2
             exit 1
           fi
 
-          echo "Token refreshed successfully"
-          echo "new_token=${NEW_TOKEN}" >> "$GITHUB_OUTPUT"
+          # Mask the token so it can never appear in logs
+          echo "::add-mask::${NEW_TOKEN}"
 
-      - name: Update repository secret
-        env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
-          NEW_TOKEN: ${{ steps.refresh.outputs.new_token }}
-        run: |
+          # Update the repository secret in this same step so the token
+          # never crosses a step boundary as an (unmasked) step output
           echo "$NEW_TOKEN" | gh secret set INSTAGRAM_ACCESS_TOKEN --repo "$GITHUB_REPOSITORY"
-          echo "Repository secret INSTAGRAM_ACCESS_TOKEN updated"
+          echo "Token refreshed and repository secret updated successfully"
